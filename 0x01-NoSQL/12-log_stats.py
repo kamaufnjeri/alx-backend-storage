@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 '''Task 12's module.
 '''
 from pymongo import MongoClient
