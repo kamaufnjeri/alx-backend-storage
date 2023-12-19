@@ -1,0 +1,2 @@
+// count number of items
+db.school.count();
