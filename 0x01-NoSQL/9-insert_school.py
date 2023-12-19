@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ insert into collection"""
 
+
 def insert_school(mongo_collection, **kwargs):
     """
     insert a documents into coll3ction
