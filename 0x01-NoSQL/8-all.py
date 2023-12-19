@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""
-8-all mode
-"""
-from typing import List
+""" list all documents with python"""
 
 
-def list_all(mongo_collection: Collection) -> List:
-    """
-    Lists all documents in a collection.
-    """
-    documents = list(mongo_collection.find())
+def list_all(mongo_collection):
+    """ list all documents"""
+    documents = mongo_collection.find()
+
+    if documents.count() == 0:
+        return []
+
     return documents
