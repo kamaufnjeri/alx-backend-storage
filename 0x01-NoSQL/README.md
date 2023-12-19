@@ -1,0 +1,1 @@
+Tasks for the project NoSQL with mongodb
