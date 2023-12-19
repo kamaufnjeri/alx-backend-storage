@@ -1,0 +1,2 @@
+// remove from collection
+db.school.remove({"name": "Holberton school"}, {multi: true});
