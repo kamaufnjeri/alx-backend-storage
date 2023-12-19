@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
-""" MongoDB Operations with Python using pymongo """
+"""pymongo"""
 
 
 def top_students(collection):
-    """
-    Returns all students sorted by average score.
-    
-    :param collection: pymongo collection object
-    :return: MongoDB cursor with students sorted by average score
-    """
-    # Use aggregation to calculate the average score for each student and sort them in descending order.
-    # The result includes only the 'name' and 'averageScore' fields.
+   """Use aggregation to calculate the average score for each student and sort them in descending order.
+    # The result includes only the 'name' and 'averageScore' fields."""
     aggregation_pipeline = [
         {
             "$project": {
