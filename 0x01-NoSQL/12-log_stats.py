@@ -3,6 +3,7 @@
 '''
 from pymongo import MongoClient
 
+
 def print_nginx_request_logs(nginx_collection):
     '''Prints stats about Nginx request logs.
     '''
