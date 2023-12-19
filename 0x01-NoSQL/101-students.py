@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
-"""top students"""
+""" MongoDB Operations with Python using pymongo """
 
 
-def top_students(mongo_collection):
-    """top students"""
-    students = mongo_collection.find()
+def top_students(collection):
+    """
+    Returns all students sorted by average score.
+    
+    :param collection: pymongo collection object
+    :return: MongoDB cursor with students sorted by average score
+    """
+    # Use aggregation to calculate the average score for each student and sort them in descending order.
+    # The result includes only the 'name' and 'averageScore' fields.
+    aggregation_pipeline = [
+        {
+            "$project": {
+                "name": "$name",
+                "averageScore": {"$avg": "$topics.score"}
+            }
+        },
+        {"$sort": {"averageScore": -1}}
+    ]
 
-    for student in students:
-        total_score = 0
-        num_topics = 0
+    # Execute the aggregation pipeline
+    sorted_students_cursor = collection.aggregate(aggregation_pipeline)
 
-        for topic in student.get('topics', []):
-            total_score += topic.get('score', 0)
-            num_topics += 1
+    return sorted_students_cursor
 
-        if num_topics > 0:
-            average_score = total_score / num_topics
-            student['averageScore'] = round(average_score, 2)
-        else:
-            student['averageScore'] = 0
-
-    # Sorting students by averageScore in descending order
-    sorted_students = sorted(students, key=lambda x: x['averageScore'], reverse=True)
-
-    return sorted_students
-
-# Rest of the code remains unchanged
 
