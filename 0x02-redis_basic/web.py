@@ -1,30 +1,52 @@
 #!/usr/bin/env python3
 """ Redis Module """
 
-from functools import wraps
 import redis
 import requests
+from functools import wraps
 from typing import Callable
 
-redis_ = redis.Redis()
+redis_instance = redis.Redis()
+'''The module-level Redis instance.
+'''
 
-def count_requests(method: Callable) -> Callable:
-    """ Decorator for counting """
+
+def cache_data(method: Callable) -> Callable:
+    '''Caches the output of fetched data with an expiration time of 10 seconds.
+    '''
     @wraps(method)
-    def wrapper(url):
-        """ Wrapper for decorator """
-        redis_.incr(f"count:{url}")
-        cached_html = redis_.get(f"cached:{url}")
-        if cached_html:
-            return cached_html.decode('utf-8')
-        html = method(url)
-        redis_.setex(f"cached:{url}", 10, html)
-        return html
+    def invoke_and_cache(url) -> str:
+        '''Wrapper function for caching the output.
+        '''
+        redis_instance.incr(f'access_count:{url}')
+        cached_result = redis_instance.get(f'cached_result:{url}')
+        if cached_result:
+            return cached_result.decode('utf-8')
+        result = method(url)
+        redis_instance.set(f'access_count:{url}', 0)
+        redis_instance.setex(f'cached_result:{url}', 10, result)
+        return result
 
-    return wrapper
+    return invoke_and_cache
 
-@count_requests
+@cache_data
 def get_page(url: str) -> str:
-    """ Obtain the HTML content of a URL """
-    req = requests.get(url)
-    return req.text
+    '''Returns the content of a URL after caching the request's response,
+    tracking the access count, and with an expiration time of 10 seconds.
+    '''
+    return requests.get(url).text
+
+# Example usage:
+if __name__ == "__main__":
+    # Simulate slow response for testing
+    slow_url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.com"
+    
+    # Access the slow URL multiple times
+    for _ in range(3):
+        page_content = get_page(slow_url)
+        print(page_content)
+
+    # Access a different URL
+    another_url = "http://www.example.com"
+    page_content = get_page(another_url)
+    print(page_content)
