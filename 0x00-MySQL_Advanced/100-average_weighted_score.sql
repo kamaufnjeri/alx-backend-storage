@@ -1,4 +1,4 @@
--- 100-average_weighted_score.sql
+-- 100-average_weighted_score.sql.
 DROP PROCEDURE IF EXISTS ComputeAverageWeightedScoreForUser;
 DELIMITER //
 

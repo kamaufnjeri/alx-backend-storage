@@ -1,4 +1,4 @@
--- Initial
+-- Initial.
 DROP TABLE IF EXISTS students;
 
 CREATE TABLE IF NOT EXISTS students (

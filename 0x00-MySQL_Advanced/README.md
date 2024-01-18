@@ -1,1 +1,1 @@
-Advanced Mysql projects by alx
+Advanced Mysql projects by alx project

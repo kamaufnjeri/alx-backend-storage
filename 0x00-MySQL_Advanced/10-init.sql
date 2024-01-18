@@ -1,4 +1,4 @@
--- Initial
+-- Initial.
 DROP TABLE IF EXISTS numbers;
 
 CREATE TABLE IF NOT EXISTS numbers (

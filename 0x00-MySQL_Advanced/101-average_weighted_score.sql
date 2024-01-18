@@ -1,4 +1,4 @@
--- average weighted score for all students
+-- average weighted score for all students.
 DROP PROCEDURE IF EXISTS ComputeAverageWeightedScoreForUsers;
 DELIMITER //
 

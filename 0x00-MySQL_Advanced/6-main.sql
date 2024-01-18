@@ -1,4 +1,4 @@
--- Show and add bonus correction
+-- Show and add bonus correction.
 SELECT * FROM projects;
 SELECT * FROM corrections;
 

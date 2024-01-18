@@ -1,4 +1,4 @@
--- Test view
+-- Test view.
 SELECT * FROM need_meeting;
 
 SELECT "--";
