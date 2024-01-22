@@ -1,2 +1,0 @@
-// list all items in collection school
-db.school.find();
